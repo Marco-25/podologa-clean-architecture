@@ -1,15 +1,20 @@
 
-interface IGet {
+export interface IGet {
     id: number
 }
 
-interface ICreate {
+export interface ICreate {
     name: string
     email: string
     bithDate: string
 }
 
-interface IUpdate {
+export interface IUpdate {
     id: number
     name: string
+    birthDate: string
+}
+
+export interface IGetEmail {
+    email: string
 }

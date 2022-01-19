@@ -6,7 +6,6 @@ export default class createClientController {
     static async createClient(params, body) {
         const repository = new ClientRepositorySQL();
         const create = new CreateClientUsecase(repository)
-        const id = await create.execute(body.name)
-        return {message: `Client created with success ID : ${id}`}
+        return await create.execute({name: body.name, email: body.email, birthDate: body.birthDate})
     }
 }

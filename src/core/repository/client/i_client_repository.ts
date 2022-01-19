@@ -1,22 +1,12 @@
 import { ClientEntity } from "../../entity/client";
+import { ICreate, IGet, IGetEmail, IUpdate } from "./i_model_data";
 
 
-export interface IGetClientRepository {
+export interface IClientRepository {
     get: () => Promise<ClientEntity[]>
-}
-
-export interface IGetOneClientRepository {
+    getByEmail: (data: IGetEmail) => Promise<ClientEntity>
     getOne: (data: IGet) => Promise<ClientEntity>
-}
-
-export interface ISaveClientRepository {
     save: (data: ICreate) => Promise<void>
-}
-
-export interface IUpdateClientRepository {
     update: (data: IUpdate) => Promise<void>
-}
-
-export interface IDeleteClientRepository {
     delete: (data: IGet) => Promise<void>
 }

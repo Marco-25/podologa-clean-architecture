@@ -1,14 +1,18 @@
 import { ClientEntity } from "../../core/entity/client";
-import { IDeleteClientRepository, IGetClientRepository, IGetOneClientRepository, ISaveClientRepository, IUpdateClientRepository } from "../../core/repository/client";
+import { IClientRepository } from "../../core/repository/client";
+import { ICreate, IGet, IGetEmail, IUpdate } from "../../core/repository/client/i_model_data";
 import database from "../database/database";
 
 
-export default class ClientRepositorySQL implements IGetClientRepository, ISaveClientRepository, IGetOneClientRepository,
- IUpdateClientRepository, IDeleteClientRepository
+export default class ClientRepositorySQL implements IClientRepository
 {
-    async save(data: ICreate): Promise<ClientEntity> {
+    async getByEmail (data: IGetEmail): Promise<ClientEntity> {
+        return await database.oneOrNone('SELECT * FROM client WHERE email = $1', [data.email])
+    }
+
+    async save(data: ICreate): Promise<void> {
         try {
-            return await database.none('INSERT INTO client (name, email, birth_date) values ($1, $2, $3)', [data.name, data.email, data.bithDate]);
+            await database.none('INSERT INTO client (name, email, birthDate) values ($1, $2, $3)', [data.name, data.email, data.bithDate]);
         } catch (error) {
             return error.message
         }   
@@ -16,7 +20,7 @@ export default class ClientRepositorySQL implements IGetClientRepository, ISaveC
 
     async get (): Promise<ClientEntity[]> {
         try {
-            return await database.manyOrNone('SELECT * FROM client')
+            return await database.manyOrNone('SELECT * FROM client ORDER BY id ASC')
         } catch (error) {
             return error.message
         }
@@ -24,15 +28,15 @@ export default class ClientRepositorySQL implements IGetClientRepository, ISaveC
 
     async getOne (data: IGet): Promise<ClientEntity> {
         try {
-            return await database.oneOrNone('SELECT * FROM client')
+            return await database.oneOrNone('SELECT * FROM client WHERE id = $1', [data.id])
         } catch (error) {
             return error.message
         }
     }
 
-    async update (data: IUpdate): Promise<ClientEntity> {
+    async update (data: IUpdate): Promise<void> {
         try {
-       return await database.query('UPDATE client SET name = $1 WHERE id = $2',[data.name, data.id])
+            await database.any('UPDATE client SET name = $1, birthDate = $2 WHERE id = $3',[data.name, data.birthDate, data.id])
         } catch (error) {
             return error.message 
         }

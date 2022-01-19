@@ -1,5 +1,4 @@
-import { ClientEntity } from "../../entity/client"
-import { ISaveClientRepository } from "../../repository/client"
+import { IClientRepository} from "../../repository/client"
 
 interface IRequest {
     name: string
@@ -7,16 +6,23 @@ interface IRequest {
     birthDate: string
 }
 
-export class CreateClientUsecase {
-    constructor(private readonly createClientRepository: ISaveClientRepository) {
-        this.createClientRepository = createClientRepository
+export class CreateClientUsecase
+{
+    constructor(private readonly ClientRepository: IClientRepository,) {
+        this.ClientRepository = ClientRepository
     }
 
-   async execute(request: IRequest): Promise<void> {
-        await this.createClientRepository.save({
-            name: request.name,
-            email: request.email,
-            bithDate: request.birthDate})
-        return null
+   async execute(request: IRequest): Promise<object | Error> {
+        try {
+            const existEmail = await this.ClientRepository.getByEmail({email: request.email})
+            if (existEmail) throw new Error("email already exists")
+            await this.ClientRepository.save({
+                name: request.name,
+                email: request.email,
+                bithDate: request.birthDate})   
+            return {message: `Client created with success.`}
+        } catch (error) {
+            return { message: error.message }
+        }
  }
 }

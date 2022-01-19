@@ -1,16 +1,17 @@
 import { ClientEntity } from "../../entity/client"
-import { IGetOneClientRepository } from "../../repository/client"
+import { IClientRepository } from "../../repository/client"
 
 interface IRequest {
     id: number
 }
 
-export class GetOneClientUsecase {
-    constructor(private readonly getOneRepository: IGetOneClientRepository) {
-        this.getOneRepository = getOneRepository
+export class GetOneClientUsecase
+{
+    constructor(private readonly ClientRepository: IClientRepository) {
+        this.ClientRepository = ClientRepository
     }
 
     async execute(request: IRequest): Promise<ClientEntity> {
-        return await this.getOneRepository.getOne({id: request.id})
+        return await this.ClientRepository.getOne({id: request.id})
     }
 }

@@ -1,5 +1,5 @@
 import { ClientEntity } from "../../../src/core/entity/client"
-import { IGetOneClientRepository } from "../../../src/core/repository/client"
+import { IClientRepository } from "../../../src/core/repository/client"
 import { GetOneClientUsecase } from "../../../src/core/usecase/client"
 import ClientRepositoryMemory from "../../mock-repository/client/clientRepositotyMemory"
 
@@ -7,7 +7,7 @@ const fakeCategory = (): ClientEntity => ({id: 1, name: "marco", email: "email@m
 
 interface sutTypes {
   sut: GetOneClientUsecase
-  repository: IGetOneClientRepository
+  repository: IClientRepository
 }
 const makeSut = (): sutTypes => {
   const repository = new ClientRepositoryMemory()
@@ -19,7 +19,7 @@ const makeSut = (): sutTypes => {
 }
 
 describe('Client', () => {
-  test('Should be return categories', async () => {
+  test('Should be return one client', async () => {
     const { sut } = makeSut()
     const result = await sut.execute({id: 1})
     expect(result).toEqual(fakeCategory())

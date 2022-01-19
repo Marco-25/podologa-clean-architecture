@@ -1,0 +1,204 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "API Exemple",
+      "description": "Documentation from Clients",
+      "version": "1.0.0"
+    },
+    "basePath": "/",  
+    "paths": {
+  
+      "/v1/client/create": {
+        "post": {
+          "tags": ["Client"],
+          "description": "Cria um cliente",
+          "summary": "Adiciona um cliente",
+          "operationId": "addClient",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "birthDate": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "name": "Fulano",
+                    "email": "fulano@mail.com",
+                    "birthDate": "01/01/1990"
+                  }
+                }
+              }
+            }
+          },
+          
+        "responses": {
+          "400": {
+            "description": "error"
+          },
+          "200": {
+            "description": "OK"
+          }
+        }
+        }
+      },
+
+      "/v1/client/{id}": {
+        "get": {
+          "description": "Rota que busca cliente pelo id",
+          "summary": "Busca de um cliente pelo id",
+          "tags": ["Client"],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "type": "number",
+              "format": "int64",
+              "required": true
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                  "application/json": {
+                      "schema": {
+                          "type":"object",
+                          "$ref": "#/components/schemas/Client"
+                      }
+                  }
+              }
+            }
+          }
+        }
+      } ,
+
+      "/v1/client/show": {
+        "get": {
+          "description": "Rota que busca todos cliente",
+          "summary": "Busca de todos cliente",
+          "tags": ["Client"],
+          "operationId": "getClientById",
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                  "application/json": {
+                      "schema": {
+                          "type":"array",
+                          "items": {
+                            "$ref": "#/components/schemas/Client"
+                          }
+                      }
+                  }
+              }
+            }
+          }
+        }
+      },
+      
+      "/v1/client/update": {
+        "put": {
+          "description": "Rota que atualiza um cliente",
+          "summary": "Atualiza um cliente",
+          "tags": ["Client"],
+          "operationId": "getClient",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type":"number",
+                      "format": "int64",
+                      "required": true
+                    },
+                    "name": {
+                      "type": "string",
+                      "required": true
+                    },
+                    "birthDate": {
+                      "type": "string",
+                      "required": true
+                    }
+                  },
+                  "example": {
+                    "id": 25,
+                    "name": "ciclano",
+                    "birthDate": "01/01/2000"
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                  "application/json": {
+                      "schema": {
+                          "type":"object",
+                          "$ref": "#/components/schemas/Client"
+                      }
+                  }
+              }
+            }
+          }
+        }
+      },
+
+      "/v1/client/delete/{id}": {
+        "delete": {
+          "description": "Rota que deleta um cliente pelo id",
+          "summary": "Deleta um cliente pelo id",
+          "tags": ["Client"],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "type": "number",
+              "format": "int64",
+              "required": true
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          }
+        }
+      } 
+
+    },
+    "components": {
+        "schemas": {
+            "Client": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "birthDate": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+
+  }

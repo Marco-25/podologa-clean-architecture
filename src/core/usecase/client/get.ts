@@ -1,13 +1,13 @@
 import { ClientEntity } from "../../entity/client"
-import { IGetClientRepository } from "../../repository/client"
+import { IClientRepository } from "../../repository/client"
 
-export class GetClientUsecase {
-
-    constructor(private readonly getRepository: IGetClientRepository) {
-        this.getRepository = getRepository
+export class GetClientUsecase
+{
+    constructor(private readonly ClientRepository: IClientRepository) {
+        this.ClientRepository = ClientRepository
     }
 
     async execute(): Promise<ClientEntity[]> {
-        return await this.getRepository.get()
+        return await this.ClientRepository.get()
     }
 }
