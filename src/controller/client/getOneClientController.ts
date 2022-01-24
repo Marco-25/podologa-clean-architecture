@@ -1,6 +1,6 @@
 import ClientAdapter from "../../adapter/models/client/clientAdapter";
 import { GetOneClientUsecase } from "../../core/usecase/client"
-import ClientRepositorySQL from "../../infra/repository/clientRepository";
+import ClientRepositorySQL from "../../infra/database/pg-promise/repository/clientRepository";
 
 
 export default class GetOneClientController {

@@ -6,7 +6,7 @@ export interface IGet {
 export interface ICreate {
     name: string
     email: string
-    bithDate: string
+    birthDate: string
 }
 
 export interface IUpdate {

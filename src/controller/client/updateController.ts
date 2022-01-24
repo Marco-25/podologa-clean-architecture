@@ -1,5 +1,5 @@
 import { UpdateClientUsecase } from "../../core/usecase/client";
-import ClientRepositorySQL from "../../infra/repository/clientRepository";
+import ClientRepositorySQL from "../../infra/database/pg-promise/repository/clientRepository";
 
 
 export default class UpdateClientController {

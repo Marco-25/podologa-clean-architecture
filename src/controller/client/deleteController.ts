@@ -1,5 +1,5 @@
 import { DeleteClientUsecase } from "../../core/usecase/client/delete";
-import ClientRepositorySQL from "../../infra/repository/clientRepository";
+import ClientRepositorySQL from "../../infra/database/pg-promise/repository/clientRepository";
 
 
 export default class DeleteClientController {
