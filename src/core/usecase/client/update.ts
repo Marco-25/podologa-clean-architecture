@@ -18,7 +18,7 @@ export class UpdateClientUsecase
 
    async execute(request: IRequest): Promise<IHttpResponse> {
      try {
-         const requiredFields = ['name','email','birthDate']
+         const requiredFields = ['id','name','birthDate']
          for (let field of requiredFields) {
              if (!request[field]) {
                  return badRequest(new MissingParamError(field))

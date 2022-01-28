@@ -7,7 +7,7 @@
     "start:hapi": "tsnd ./src/infra/http/hapi/app.ts",
     "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
     "test:verbose": "jest --passWithNoTests --runInBand",
-    "test:unit": "npm test -- --watch -c jest-unit-config.js",
+    "test:unit": "npm test -- --watch --unhandled-rejections=strict -c jest-unit-config.js",
     "test:ci": "npm test -- --coverage"
   },
   "license": "MIT",

@@ -24,13 +24,13 @@ describe('Client', () => {
   test('Should be return clients', async () => {
     const { sut } = makeSut()
     const result = await sut.execute()
-    expect(result).toEqual(fakeClient())
+    expect(result.body).toEqual(fakeClient())
   })
 
   test('Should be return throw error', async () => {
     const { sut, repository } = makeSut()
     jest.spyOn(repository, 'get').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())))
     const promise = sut.execute()
-    await expect(promise).rejects.toThrow()
+    expect(promise).rejects.toThrow()
   })
 })

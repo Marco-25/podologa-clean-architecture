@@ -11,9 +11,9 @@ export default class ClientRepositoryMemory implements IClientRepository
     
     async save (data: ICreate): Promise<void> {
         try {
-            this.clients.push({id: 3,name: data.name, email: data.email, bithDate: data.bithDate})
+            this.clients.push({id: 3,name: data.name, email: data.email, bithDate: data.birthDate})
         } catch (error) {
-            throw new Error("Internal Error")
+            throw new Error()
         }
     }
 
@@ -21,7 +21,7 @@ export default class ClientRepositoryMemory implements IClientRepository
         try {
             return this.clients.find(client => client.id == data.id)
         } catch (error) {
-            throw new Error("Internal Error")
+            throw new Error()
         }
     }
 
@@ -29,7 +29,7 @@ export default class ClientRepositoryMemory implements IClientRepository
         try {
             return this.clients
         } catch (error) {
-            throw new Error("Internal Error")
+            throw new Error()
         }
     }
 
@@ -37,7 +37,7 @@ export default class ClientRepositoryMemory implements IClientRepository
         try {
             return this.clients.filter(client => client.email.includes(String(data.email)))[0]
         } catch (error) {
-            throw new Error("Internal Error")
+            throw new Error()
         }
     }
 
@@ -56,7 +56,7 @@ export default class ClientRepositoryMemory implements IClientRepository
     
             this.clients[clientIndex] = client
         } catch (error) {
-            throw new Error("Internal Error")
+            throw new Error()
         }
 
     }
@@ -67,7 +67,7 @@ export default class ClientRepositoryMemory implements IClientRepository
             const clientIndex = this.clients.findIndex(client => client.id === data.id)
             this.clients.splice(this.clients[clientIndex].id, 1)
         } catch (error) {
-            throw new Error("Internal Error")
+            throw new Error()
         }
     }
 }

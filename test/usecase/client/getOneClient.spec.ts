@@ -22,13 +22,17 @@ describe('Client', () => {
   test('Should be return one client', async () => {
     const { sut } = makeSut()
     const result = await sut.execute({id: 1})
-    expect(result).toEqual(fakeCategory())
+    expect(result.body).toEqual(fakeCategory())
   })
 
   test('Should be return throw error', async () => {
-    const { sut, repository } = makeSut()
-    jest.spyOn(repository, 'getOne').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())))
-    const promise = sut.execute({id: 1})
-    await expect(promise).rejects.toThrow()
+    try {
+      const { sut, repository } = makeSut()
+      jest.spyOn(repository, 'getOne').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())))
+      sut.execute({id: 1})
+    } catch (error) {
+      expect(error).rejects.toThrow()
+    }
+    
   })
 })
