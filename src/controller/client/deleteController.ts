@@ -7,7 +7,6 @@ export default class DeleteClientController {
     static async deleteClient(params, body) {
         const repository = new ClientRepositorySQL();
         const client = new DeleteClientUsecase(repository)
-
         return await client.execute({ id: params.id })
        
     }

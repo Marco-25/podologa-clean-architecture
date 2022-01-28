@@ -2,10 +2,10 @@
 
 export default class ExpressAdapter {
 
-    static create(fn, status: number = 200) {
+    static create(fn) {
         return async function (req, res) {
             const obj = await fn(req.params, req.body);
-            res.status(status).json(obj);
+            res.status(obj.statusCode).json(obj.body);
         }
     }
 }

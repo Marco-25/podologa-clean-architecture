@@ -1,16 +1,15 @@
 import { ClientEntity } from "../../../core/entity/client";
-
-interface IResponse {
-    name: string
-    email: string
-}
+import { IHttpResponse } from "../../http-adapter/http-adapter";
 
 export default class ClientAdapter {
 
-    static adapterResponseClient(data: ClientEntity): IResponse {
+    static adapterResponseClient(data: ClientEntity): IHttpResponse {
         return {
-            name: data.name,
-            email: data.email
+            statusCode: 200,
+            body: {
+                name: data.name,
+                email: data.email
+            }
         }
     }
 }

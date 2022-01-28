@@ -12,7 +12,7 @@ export default class ClientRepositorySQL implements IClientRepository
 
     async save(data: ICreate): Promise<void> {
         try {
-            await database.none('INSERT INTO client (name, email, birthDate) VALUES ($1, $2, $3);', [data.name, data.email, data.birthDate]);
+            await database.query('INSERT INTO client (name, email, birthDate) VALUES ($1, $2, $3);', [data.name, data.email, data.birthDate]);
         } catch (error) {
             return error.message
         }   

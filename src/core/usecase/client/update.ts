@@ -1,3 +1,7 @@
+import { IHttpResponse } from "../../../adapter/http-adapter/http-adapter"
+import { MissingParamError } from "../../../helper/errors"
+import { badRequest } from "../../../helper/errors/http-errors"
+import { ok } from "../../../helper/http-response"
 import { IClientRepository } from "../../repository/client"
 
 interface IRequest {
@@ -12,13 +16,12 @@ export class UpdateClientUsecase
         this.ClientRepository = ClientRepository
     }
 
-   async execute(request: IRequest): Promise<object | Error> {
+   async execute(request: IRequest): Promise<IHttpResponse> {
      try {
-         const fields = ['id','name','birthDate']
-         
-         for (let i = 0; i < fields.length; i++) {
-             if (!request[fields[i]] || request[fields[i]] == null ) {
-                throw new Error(`${fields[i]} is requerid`)
+         const requiredFields = ['name','email','birthDate']
+         for (let field of requiredFields) {
+             if (!request[field]) {
+                 return badRequest(new MissingParamError(field))
              }
          }
 
@@ -27,9 +30,9 @@ export class UpdateClientUsecase
             name: request.name,
             birthDate: request.birthDate
         })
-        return {"message": "success"}
+        return ok('success')
      } catch (error) {
-         return { message: error.message }
+         return error
      }
     }
 }

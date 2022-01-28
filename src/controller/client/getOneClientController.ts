@@ -9,7 +9,7 @@ export default class GetOneClientController {
         const repository = new ClientRepositorySQL();
         const client = new GetOneClientUsecase(repository)
         const result = await client.execute({ id: Number(params.id )})
-        return ClientAdapter.adapterResponseClient(result)
+        return ClientAdapter.adapterResponseClient(result.body)
        
     }
 }

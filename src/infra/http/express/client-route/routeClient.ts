@@ -9,7 +9,7 @@ import UpdateClientController from "../../../../controller/client/updateControll
 
 const router = Router();
 
-router.post("/client/create",authentication, ExpressAdapter.create(createClientController.createClient, 201));
+router.post("/client/create",authentication, ExpressAdapter.create(createClientController.createClient));
 router.get("/client/show",authentication, ExpressAdapter.create(GetClientController.getClient));
 router.get("/client/:id",authentication, ExpressAdapter.create(GetOneClientController.getOneClient));
 router.put("/client/update",authentication, ExpressAdapter.create(UpdateClientController.updateClient));
